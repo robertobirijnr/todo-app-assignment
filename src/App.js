@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import "./App.css";
 import ListItems from "./components/ListItems";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+
+library.add(faTrash);
 
 class App extends Component {
   state = {
@@ -36,6 +40,13 @@ class App extends Component {
     }
   };
 
+  deleteItem = key => {
+    const filteredItems = this.state.items.filter(item => item.key !== key);
+    this.setState({
+      items: filteredItems
+    });
+  };
+
   render() {
     return (
       <div className="App">
@@ -50,7 +61,7 @@ class App extends Component {
             <button type="submit">Add</button>
           </form>
         </header>
-        <ListItems items={this.state.items} />
+        <ListItems items={this.state.items} deleteItem={this.deleteItem} />
       </div>
     );
   }
